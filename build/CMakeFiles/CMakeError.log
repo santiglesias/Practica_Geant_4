@@ -1,0 +1,43 @@
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/uo258286/G4work/MyFirstApplication/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/opt/rh/devtoolset-8/root/usr/bin/gmake cmTC_a70e6/fast && /opt/rh/devtoolset-8/root/usr/bin/gmake  -f CMakeFiles/cmTC_a70e6.dir/build.make CMakeFiles/cmTC_a70e6.dir/build
+gmake[1]: se entra en el directorio '/home/uo258286/G4work/MyFirstApplication/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a70e6.dir/src.c.o
+/opt/rh/devtoolset-8/root/usr/bin/cc   -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_a70e6.dir/src.c.o   -c /home/uo258286/G4work/MyFirstApplication/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_a70e6
+/usr/bin/cmake3 -E cmake_link_script CMakeFiles/cmTC_a70e6.dir/link.txt --verbose=1
+/opt/rh/devtoolset-8/root/usr/bin/cc  -DCMAKE_HAVE_LIBC_PTHREAD    CMakeFiles/cmTC_a70e6.dir/src.c.o  -o cmTC_a70e6 
+CMakeFiles/cmTC_a70e6.dir/src.c.o: En la función `main':
+src.c:(.text+0x2d): referencia a `pthread_create' sin definir
+src.c:(.text+0x39): referencia a `pthread_detach' sin definir
+src.c:(.text+0x45): referencia a `pthread_cancel' sin definir
+src.c:(.text+0x56): referencia a `pthread_join' sin definir
+src.c:(.text+0x6a): referencia a `pthread_atfork' sin definir
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_a70e6.dir/build.make:107: cmTC_a70e6] Error 1
+gmake[1]: se sale del directorio '/home/uo258286/G4work/MyFirstApplication/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:141: cmTC_a70e6/fast] Error 2
+
+
+Source file was:
+#include <pthread.h>
+
+void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
